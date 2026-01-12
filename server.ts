@@ -25,4 +25,8 @@ async function handleRpcRequest(req: Request, res: Response) {
 
 app.post('/rpc', handleRpcRequest);
 
-app.listen(process.env.SERVER_PORT, () => { console.log(`running SERVER on ${process.env.SERVER_URL}`) });
+if (process.env.SERVER_URL || process.env.SERVER_PORT) {
+    app.listen(process.env.SERVER_PORT, () => { console.log(`running SERVER on ${process.env.SERVER_URL}`) });
+} else {
+    throw new Error('SERVER_URL and/or SERVER_PORT not specified.')
+}
