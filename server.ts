@@ -1,15 +1,13 @@
 import express, { type Request, type Response } from 'express';
-import { JSONRPCServer } from "json-rpc-2.0";
+import { rpcServer } from './utils/rpc-server';
 
 const app = express();
 app.use(express.json());
 
-const rpcServer = new JSONRPCServer();
-
 rpcServer.addMethod('ping', () => 'pong');
 rpcServer.addMethod('add', ({ a, b }) => a + b);
 
-app.post('/rpc', async (req: Request, res: Response) => {
+async function handleRpcRequest(req: Request, res: Response) {
     const body = await rpcServer.receive(req.body);
 
     console.log('body', body);
@@ -23,6 +21,8 @@ app.post('/rpc', async (req: Request, res: Response) => {
     } else {
         return res.sendStatus(204);
     }
-});
+}
 
-app.listen(process.env.SERVER_PORT, () => { });
+app.post('/rpc', handleRpcRequest);
+
+app.listen(process.env.SERVER_PORT, () => { console.log(`running SERVER on ${process.env.SERVER_URL}`) });
