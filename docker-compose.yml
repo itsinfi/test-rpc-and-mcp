@@ -1,0 +1,28 @@
+services:
+    server:
+        container_name: server
+        env_file:
+            - .env.docker
+        build:
+            context: .
+            dockerfile: Dockerfile.server
+        ports:
+            - '${SERVER_PORT}:${SERVER_PORT}'
+        networks:
+            - app-network
+
+    client:
+        container_name: client
+        env_file:
+            - .env.docker
+        build:
+            context: .
+            dockerfile: Dockerfile.client
+        ports:
+            - '${CLIENT_PORT}:${CLIENT_PORT}'
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge

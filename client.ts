@@ -1,19 +1,19 @@
+import { APP_CONFIG } from './config/config';
 import express, { type Request, type Response } from 'express';
 import { sendRpcRequest } from './utils/send-rpc-request';
 
 const app = express();
 app.use(express.json());
 
-app.post('/ping', async (req: Request, res: Response) => {
-    return await sendRpcRequest(req, res, 'ping');
+app.post('/:method', async (req: Request, res: Response) => {
+    if (req?.params?.method === undefined) {
+        throw new Error('no method provided');
+    }
+
+    const method = req?.params?.method?.toString().replaceAll('-', '/') ?? '';
+    return await sendRpcRequest(req, res, method);
 });
 
-app.post('/add', async (req: Request, res: Response) => {
-    return await sendRpcRequest(req, res, 'add');
+app.listen(APP_CONFIG.CLIENT_PORT, () => {
+    console.log(`running CLIENT on ${APP_CONFIG.CLIENT_URL}`);
 });
-
-if (process.env.CLIENT_URL || process.env.CLIENT_PORT) {
-    app.listen(process.env.CLIENT_PORT, () => { console.log(`running CLIENT on ${process.env.CLIENT_URL}`) });
-} else {
-    throw new Error('CLIENT_URL and/or CLIENT_PORT not specified.')
-}

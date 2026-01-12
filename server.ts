@@ -1,32 +1,24 @@
-import express, { type Request, type Response } from 'express';
-import { rpcServer } from './utils/rpc-server';
+import { APP_CONFIG } from './config/config';
+import express from 'express';
+import { RPC_SERVER } from './utils/rpc-server';
+import { handlePing } from './handlers/handle-ping';
+import { handleAdd } from './handlers/handle-add';
+import { handleRpcRequest } from './utils/handle-rpc-request';
+import { handleRootsList } from './handlers/handle-roots-list';
+import path from 'path';
 
 const app = express();
 app.use(express.json());
+app.use('/data', express.static(path.join(process.cwd(), 'data')));
 
-rpcServer.addMethod('ping', () => 'pong');
-rpcServer.addMethod('add', ({ a, b }) => a + b);
+RPC_SERVER.addMethod('ping', handlePing);
+RPC_SERVER.addMethod('add', handleAdd);
+RPC_SERVER.addMethod('roots/list', handleRootsList);
 
-async function handleRpcRequest(req: Request, res: Response) {
-    const body = await rpcServer.receive(req.body);
-
-    console.log('body', body);
-
-    if (body) {
-        if (body.error) {
-            return res.status(404).json(body);    
-        }
-
-        return res.json(body);
-    } else {
-        return res.sendStatus(204);
-    }
-}
+console.log('APP_CONFIG', APP_CONFIG);
 
 app.post('/rpc', handleRpcRequest);
 
-if (process.env.SERVER_URL || process.env.SERVER_PORT) {
-    app.listen(process.env.SERVER_PORT, () => { console.log(`running SERVER on ${process.env.SERVER_URL}`) });
-} else {
-    throw new Error('SERVER_URL and/or SERVER_PORT not specified.')
-}
+app.listen(APP_CONFIG.SERVER_PORT, () => {
+    console.log(`running SERVER on ${APP_CONFIG.SERVER_URL}`);
+});
