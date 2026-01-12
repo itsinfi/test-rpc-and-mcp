@@ -1,0 +1,17 @@
+{
+  "name": "test_rpc_and_mcp",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.6",
+    "express": "^5.2.1",
+    "json-rpc-2.0": "^1.7.1"
+  }
+}
