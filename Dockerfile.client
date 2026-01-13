@@ -1,7 +1,12 @@
-FROM oven/bun:latest
-WORKDIR /usr/src/app
-COPY bun.lock package.json ./
-RUN bun install --frozen-lockfile
-COPY . .
-EXPOSE 3001
-CMD ["bun", "run", "client.ts"]
+FROM ghcr.io/ericlbuehler/mistral.rs:cuda-89-sha-a5c4eda28da6946a5c01782572d25a04e0dbc56a
+WORKDIR /app
+RUN mkdir -p /models
+COPY model.gguf /models/ TODO:
+COPY mcp.toml /app/mcp.toml TODO:
+EXPOSE 8080
+CMD [
+    "mistralrs-server",
+    "--model-path", "/models/model.gguf", TODO:
+    "--port", "8080",
+    "--mcp-config", "/app/mcp.toml" TODO:
+]

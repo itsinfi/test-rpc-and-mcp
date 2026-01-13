@@ -1,5 +1,5 @@
 FROM oven/bun:latest
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY bun.lock package.json ./
 RUN bun install --frozen-lockfile
 COPY . .

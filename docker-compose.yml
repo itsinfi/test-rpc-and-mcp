@@ -13,13 +13,13 @@ services:
 
     client:
         container_name: client
-        env_file:
-            - .env.docker
         build:
             context: .
             dockerfile: Dockerfile.client
         ports:
-            - '${CLIENT_PORT}:${CLIENT_PORT}'
+            - '8080:8080'
+        depends_on:
+            - server
         networks:
             - app-network
 
