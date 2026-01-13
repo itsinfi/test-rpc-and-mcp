@@ -1,0 +1,7 @@
+-   https://modelcontextprotocol.io/docs/develop/connect-local-servers
+-   https://modelcontextprotocol.io/docs/develop/connect-remote-servers
+-   https://modelcontextprotocol.io/docs/develop/build-server#typescript
+-   https://modelcontextprotocol.io/docs/develop/build-client#typescript
+-   https://github.com/modelcontextprotocol/typescript-sdk
+-   https://www.jsonrpc.org/historical/json-rpc-over-http.html#response-codes
+-   https://zod.dev/

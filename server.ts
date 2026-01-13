@@ -1,24 +1,23 @@
-import { APP_CONFIG } from './config/config';
-import express from 'express';
-import { RPC_SERVER } from './utils/rpc-server';
-import { handlePing } from './handlers/handle-ping';
-import { handleAdd } from './handlers/handle-add';
-import { handleRpcRequest } from './utils/handle-rpc-request';
-import { handleRootsList } from './handlers/handle-roots-list';
-import path from 'path';
+import { APP_CONFIG, GET_ALERTS_CONFIG, GET_FORECAST_CONFIG } from './config';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { callGetAlerts, callGetForecast } from './tools';
+import { MCP_SERVER_INFO } from './config/nws/constants';
 
-const app = express();
-app.use(express.json());
-app.use('/data', express.static(path.join(process.cwd(), 'data')));
+console.error(APP_CONFIG); // console.log may not be used because it writes to stdout https://modelcontextprotocol.io/docs/develop/build-server#logging-in-mcp-servers-2
 
-RPC_SERVER.addMethod('ping', handlePing);
-RPC_SERVER.addMethod('add', handleAdd);
-RPC_SERVER.addMethod('roots/list', handleRootsList);
+const server = new McpServer(MCP_SERVER_INFO);
 
-console.log('APP_CONFIG', APP_CONFIG);
+server.registerTool('get_alerts', GET_ALERTS_CONFIG, callGetAlerts);
+server.registerTool('get_forecast', GET_FORECAST_CONFIG, callGetForecast);
 
-app.post('/rpc', handleRpcRequest);
+async function main() {
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    console.error('Weather MCP Server running on stdio');
+}
 
-app.listen(APP_CONFIG.SERVER_PORT, () => {
-    console.log(`running SERVER on ${APP_CONFIG.SERVER_URL}`);
+main().catch((error) => {
+    console.error('Error in main():', error);
+    process.exit(1);
 });

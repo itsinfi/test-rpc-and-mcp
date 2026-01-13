@@ -1,4 +1,4 @@
-import { APP_CONFIG } from '../config/config';
+import { APP_CONFIG } from '../config';
 
 export function getDockerUrl(url: string): string {
     if (APP_CONFIG.ENV === 'DOCKER') {
