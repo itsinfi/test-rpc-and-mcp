@@ -5,3 +5,4 @@
 -   https://github.com/modelcontextprotocol/typescript-sdk
 -   https://www.jsonrpc.org/historical/json-rpc-over-http.html#response-codes
 -   https://zod.dev/
+-   llm download (llama 3.2 1b q4 gguf): https://huggingface.co/Solshine/Llama-3.2-1B-Q4_K_M-GGUF/tree/main

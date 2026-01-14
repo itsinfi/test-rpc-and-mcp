@@ -1,12 +1,7 @@
-FROM ghcr.io/ericlbuehler/mistral.rs:cuda-89-sha-a5c4eda28da6946a5c01782572d25a04e0dbc56a
+FROM ghcr.io/ericlbuehler/mistral.rs:cpu-0.6.0
 WORKDIR /app
 RUN mkdir -p /models
-COPY model.gguf /models/ TODO:
-COPY mcp.toml /app/mcp.toml TODO:
+COPY model.gguf /models/
+COPY mcp.json /app/mcp.json
 EXPOSE 8080
-CMD [
-    "mistralrs-server",
-    "--model-path", "/models/model.gguf", TODO:
-    "--port", "8080",
-    "--mcp-config", "/app/mcp.toml" TODO:
-]
+CMD ["mistralrs-server", "-p", "8080", "--mcp-config", "/app/mcp.json", "run", "-m", "/models/model.gguf"]

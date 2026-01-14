@@ -2,7 +2,7 @@ services:
     server:
         container_name: server
         env_file:
-            - .env.docker
+            - .env
         build:
             context: .
             dockerfile: Dockerfile.server

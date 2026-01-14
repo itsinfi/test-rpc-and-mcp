@@ -1,0 +1,10 @@
+{
+    "servers": [
+        {
+            "name": "server",
+            "transport": "http",
+            "url": "http://host.docker.internal:3000/mcp",
+            "timeout_ms": 10000
+        }
+    ]
+}
