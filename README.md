@@ -28,9 +28,10 @@ To check if the server is working, try any of the following endpoints:
 
 Optionally, you can change the following parameters when executing:
 
-- `-h`: hostname
-- `-p`: port
 - `-m`: mode (either `http` or `stdio`)
+- `-h`: hostname (only http)
+- `-p`: port (only http)
+- `-t`: session timeout (only http)
 
 ## Run MCP Client via Cursor
 
