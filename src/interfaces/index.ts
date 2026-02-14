@@ -7,4 +7,4 @@ export { type GetAlertsSchema } from './nws/schema/get-alerts-schema';
 export { type GetForecastSchema } from './nws/schema/get-forecast-schema';
 export { type HttpToolRequest } from './nws/http-tool-request';
 export { type Argument } from './config/argument';
-export { ServerModeSchema, ServerMode } from './config/server-mode';
+export { ServerModeSchema, TransportMode } from './config/transport-mode';

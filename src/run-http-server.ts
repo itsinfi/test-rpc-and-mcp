@@ -35,8 +35,9 @@ export async function runHttpServer(server: McpServer) {
     };
 
     Bun.serve({
-        port: APP_CONFIG.SERVER_PORT,
-        hostname: APP_CONFIG.SERVER_HOST,
+        port: APP_CONFIG.PORT,
+        hostname: APP_CONFIG.HOST,
+        idleTimeout: APP_CONFIG.IDLE_TIMEOUT,
         routes: {
             ...apiRoutes,
             '/mcp': async (req: Request) => await transport.handleRequest(req),
@@ -50,6 +51,6 @@ export async function runHttpServer(server: McpServer) {
     });
 
     console.log(
-        `${MCP_SERVER_INFO.name} running on http://${APP_CONFIG.SERVER_HOST}:${APP_CONFIG.SERVER_PORT}/mcp`,
+        `${MCP_SERVER_INFO.name} running on http://${APP_CONFIG.HOST}:${APP_CONFIG.PORT}/mcp`,
     );
 }

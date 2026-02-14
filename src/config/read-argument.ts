@@ -3,16 +3,27 @@ import type { Argument } from '../interfaces';
 
 const args = Bun.argv;
 
-export function readArgument<T>({ key, schema, defaultValue }: Argument<T>): T {
+export function readArgument<T>({
+    key,
+    name,
+    description,
+    schema,
+    defaultValue,
+}: Argument<T>): T {
+    console.log(''.padEnd(50, '*'));
+
     const index = args.indexOf(`-${key}`);
 
     let value;
 
     if (index === -1) {
-        console.log(`Defaulting argument -${key} to ${defaultValue}`);
+        console.log(
+            `${name}:\nDefaulting argument -${key} to ${defaultValue} (${description})`,
+        );
         value = defaultValue;
     } else {
         value = args[index + 1];
+        console.log(`${name}:\nSet to ${defaultValue}`);
     }
 
     const parsed = z.safeParse(schema, value);
@@ -22,7 +33,7 @@ export function readArgument<T>({ key, schema, defaultValue }: Argument<T>): T {
 
         for (const issue of parsed.error.issues) {
             console.error(
-                `-    ${issue.path.join('.') || '(root)'}: ${issue.message}`,
+                `-    ${issue.path.join('.') || '(root)'}: ${issue.message}\n`,
             );
         }
 
