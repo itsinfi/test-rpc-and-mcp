@@ -15,6 +15,9 @@ export default defineConfig([
                 trailingComma: 'all',
             },
         },
+        rules: {
+            noUselessReturn: 'error',
+        },
     },
     tseslint.configs.recommended,
 ]);

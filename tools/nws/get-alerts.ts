@@ -30,7 +30,7 @@ async function getAlerts({ state }: GetAlertsSchema): Promise<CallToolResult> {
     return createCallToolTextResult(alertsText);
 }
 
-export const callGetAlerts = async (
+export const callGetAlertsViaMcp = async (
     args: ShapeOutput<
         Record<
             string,
@@ -38,3 +38,6 @@ export const callGetAlerts = async (
         >
     >,
 ) => await getAlerts(args as unknown as GetAlertsSchema);
+
+export const callGetAlertsViaHttp = async (payload: GetAlertsSchema) =>
+    getAlerts(payload);

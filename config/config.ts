@@ -1,16 +1,8 @@
 import { z } from 'zod';
 
-const numberFromString = z.preprocess((val) => {
-    if (typeof val === 'string' && val.trim() !== '') {
-        const n = Number(val);
-        return Number.isNaN(n) ? val : n;
-    }
-    return val;
-}, z.number().int());
-
 const ConfigSchema = z.object({
-    SERVER_HOST: z.string(),
-    SERVER_PORT: numberFromString,
+    SERVER_HOST: z.coerce.string(),
+    SERVER_PORT: z.coerce.number().int(),
 });
 
 const parsed = ConfigSchema.safeParse(process.env);

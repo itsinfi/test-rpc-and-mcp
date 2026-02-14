@@ -62,7 +62,7 @@ async function getForecast({
     return createCallToolTextResult(forecastText);
 }
 
-export const callGetForecast = async (
+export const callGetForecastViaMcp = async (
     args: ShapeOutput<
         Record<
             string,
@@ -70,3 +70,6 @@ export const callGetForecast = async (
         >
     >,
 ) => await getForecast(args as unknown as GetForecastSchema);
+
+export const callGetForecastViaHttp = async (payload: GetForecastSchema) =>
+    await getForecast(payload);
