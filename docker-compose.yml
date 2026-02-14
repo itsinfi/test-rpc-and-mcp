@@ -11,7 +11,7 @@ services:
         networks:
             - app-network
 
-    client:
+    mistralrs-client:
         container_name: client
         build:
             context: .

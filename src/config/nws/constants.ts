@@ -1,12 +1,5 @@
-import type { Implementation } from '@modelcontextprotocol/sdk/types.js';
 import type { ToolConfig } from '../../interfaces/nws/tool-config';
 import { z } from 'zod';
-
-// CONFIG FOR MCP SERVER ---------------------------------------------------------------------------------------------------------------------
-export const MCP_SERVER_INFO: Implementation = Object.freeze({
-    name: 'US Weather',
-    version: '1.0.0',
-});
 
 // CONFIG FOR NWS API ---------------------------------------------------------------------------------------------------------------------
 export const NWS_API_BASE: string = 'https://api.weather.gov';

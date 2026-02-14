@@ -1,7 +1,0 @@
-FROM ghcr.io/ericlbuehler/mistral.rs:cpu-0.6.0
-WORKDIR /app
-RUN mkdir -p /models
-COPY model.gguf /models/
-COPY mcp.json /app/mcp.json
-EXPOSE 8080
-CMD ["mistralrs-server", "-p", "8080", "--mcp-config", "/app/mcp.json", "run", "-m", "/models/model.gguf"]

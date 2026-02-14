@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "nws-weather": {
+            "command": "cmd",
+            "args": [
+                "/c",
+                "bun C:\\PATH\\TO\\PARENT\\FOLDER\\server.ts -m stdio"
+            ]
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { HttpToolRequest } from '../../interfaces';
+import type { HttpToolRequest } from '../interfaces';
 
 export async function handleToolRequestViaHttp<T>({
     request,
