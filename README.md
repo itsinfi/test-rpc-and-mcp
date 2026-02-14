@@ -24,7 +24,7 @@ To check if the server is working, try any of the following endpoints:
 
 - `http://localhost:3000/api/health`
 - `http://localhost:3000/api/alerts?state=CA`
-- `http://localhost:3000/api/forecasts?latitude=61&longitude=-149`
+- `http://localhost:3000/api/forecast?latitude=61&longitude=-149`
 
 Optionally, you can change the following parameters when executing:
 
@@ -35,14 +35,14 @@ Optionally, you can change the following parameters when executing:
 ## Run MCP Client via Cursor
 
 1.  Install (Cursor)[https://cursor.com/].
-2.  If you use Windows, clone `mcp.example.json` into `C:\Users\YOUR_USERNAME\.cursor\` and rename it to `mcp.json` (you will need to create the folder and file if not done before).
+2.  If you use Windows, clone `mcp-stdio.example.json` or `mcp-http.example.json` into `C:\Users\YOUR_USERNAME\.cursor\` and rename it to `mcp.json` (you will need to create the folder and file if not done before).
 3.  Change the value for `args` from `["C:\\PATH\\TO\\PARENT\\FOLDER\\server.ts"]` to the absolute path to `server.ts` on your system.
 4.  Restart Cursor.
 
 ## Run MCP Client via Claude for Desktop
 
 1.  Install (Claude for Desktop)[https://claude.com/download]\*.
-2.  If you use Windows, clone `mcp.example.json` into `C:\Users\YOUR_USERNAME\AppData\Roaming\Claude` and rename it to `mcp.json`\*\*.
+2.  If you use Windows, clone `mcp-stdio.example.json` into `C:\Users\YOUR_USERNAME\AppData\Roaming\Claude` and rename it to `mcp.json`\*\*.
 3.  Change the value for `args` from `["C:\\PATH\\TO\\PARENT\\FOLDER\\server.ts"]` to the absolute path to `server.ts` on your system.
 4.  Restart Cursor for Desktop (you need to go to `File` -> `Exit` inside Claude because simply closing the window will not fully quit Claude for Desktop)
 

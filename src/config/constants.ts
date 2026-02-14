@@ -8,6 +8,6 @@ export const DEFAULT_SERVER_MODE = ServerMode.Http;
 
 // CONFIG FOR MCP SERVER ---------------------------------------------------------------------------------------------------------------------
 export const MCP_SERVER_INFO: Implementation = Object.freeze({
-    name: 'US Weather',
+    name: 'nws-weather',
     version: '1.0.0',
 });

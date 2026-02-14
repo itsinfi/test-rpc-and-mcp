@@ -1,0 +1,7 @@
+{
+    "mcpServers": {
+        "nws-weather": {
+            "url": "http://HOSTNAME:PORT/mcp"
+        }
+    }
+}

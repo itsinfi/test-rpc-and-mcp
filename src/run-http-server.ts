@@ -24,7 +24,7 @@ export async function runHttpServer(server: McpServer) {
                     toolCaller: callGetAlertsViaHttp,
                 }),
         },
-        '/api/forecasts': {
+        '/api/forecast': {
             GET: async (req: Request) =>
                 await handleToolRequestViaHttp<GetForecastSchema>({
                     request: req,
