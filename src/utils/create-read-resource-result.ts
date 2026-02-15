@@ -1,17 +1,23 @@
 import type { ReadResourceResult } from '@modelcontextprotocol/sdk/types.js';
-import type { Resource } from '../interfaces';
+import type { Resource } from '../types';
 
 export function createReadResourceResult(
-    resource: Resource,
+    resources: Resource[],
 ): ReadResourceResult {
     console.error(
         [
             'output:',
-            `-  uri: ${resource.uri}`,
-            `-  mime type: ${resource.mimeType}`,
-            `-  text: ${resource.text}`,
+            ...resources.map((resource) =>
+                [
+                    `-  uri: ${resource.uri}`,
+                    `   -   mime type: ${resource.mimeType}`,
+                    `   -   text: ${resource.text}`,
+                ].join('\n'),
+            ),
         ].join('\n'),
     );
 
-    return { contents: [resource] };
+    console.error('resources', resources);
+
+    return { contents: resources };
 }

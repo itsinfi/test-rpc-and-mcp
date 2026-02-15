@@ -1,12 +1,22 @@
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
-import { APP_CONFIG, GET_ALERTS_CONFIG, GET_FORECAST_CONFIG } from './config';
-import type { GetAlertsSchema, GetForecastSchema } from './interfaces';
+import {
+    APP_CONFIG,
+    GET_ALERTS_SCHEMA,
+    GET_FORECAST_SCHEMA,
+    GET_JOKE_BY_TOPIC_SCHEMA,
+} from './config';
+import type {
+    GetAlertsSchema,
+    GetForecastSchema,
+    GetJokeByTopicSchema,
+} from './types';
 import { callGetAlertsViaHttp, callGetForecastViaHttp } from './tools';
 import { handleCallToolViaHttp } from './utils';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { MCP_SERVER_INFO } from './config/constants';
-import { getJokes } from './resources';
+import { getJokeByTopic, getJokes } from './resources';
 import { handleReadResourceViaHttp } from './utils/handle-read-resource-via-http';
+import type { ZodType } from 'zod';
 
 export async function runHttpServer(server: McpServer) {
     const transport = new WebStandardStreamableHTTPServerTransport();
@@ -18,7 +28,7 @@ export async function runHttpServer(server: McpServer) {
             GET: async (req: Request) =>
                 await handleCallToolViaHttp<GetAlertsSchema>({
                     request: req,
-                    schema: GET_ALERTS_CONFIG.inputSchema,
+                    schema: GET_ALERTS_SCHEMA,
                     toolCaller: callGetAlertsViaHttp,
                 }),
         },
@@ -26,16 +36,18 @@ export async function runHttpServer(server: McpServer) {
             GET: async (req: Request) =>
                 await handleCallToolViaHttp<GetForecastSchema>({
                     request: req,
-                    schema: GET_FORECAST_CONFIG.inputSchema,
+                    schema: GET_FORECAST_SCHEMA,
                     toolCaller: callGetForecastViaHttp,
                 }),
         },
         '/api/jokes': {
             GET: async (req: Request) =>
-                handleReadResourceViaHttp({
+                handleReadResourceViaHttp<GetJokeByTopicSchema>({
                     request: req,
-                    resourceReader: getJokes,
+                    schema: GET_JOKE_BY_TOPIC_SCHEMA,
+                    resourceReader: getJokeByTopic,
                 }),
+            //GET: Response.json(getJokes()),
         },
     };
 
@@ -55,7 +67,7 @@ export async function runHttpServer(server: McpServer) {
         },
     });
 
-    console.log(
+    console.error(
         `${MCP_SERVER_INFO.name} running on http://${APP_CONFIG.HOST}:${APP_CONFIG.PORT}/mcp`,
     );
 }

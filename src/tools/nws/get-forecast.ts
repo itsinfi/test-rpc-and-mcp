@@ -4,7 +4,7 @@ import {
     type PointsResponse,
     type ForecastPeriod,
     type GetForecastSchema,
-} from '../../interfaces';
+} from '../../types';
 import { NWS_API_BASE } from '../../config';
 import { createCallToolResult, makeNWSRequest } from '../../utils';
 import type { $ZodTypeInternals } from 'zod/v4/core';

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Argument } from '../interfaces';
+import type { Argument } from '../types';
 
 const args = Bun.argv;
 
@@ -10,20 +10,20 @@ export function readArgument<T>({
     schema,
     defaultValue,
 }: Argument<T>): T {
-    console.log(''.padEnd(50, '*'));
+    console.error(''.padEnd(50, '*'));
 
     const index = args.indexOf(`-${key}`);
 
     let value;
 
     if (index === -1) {
-        console.log(
+        console.error(
             `${name}:\nDefaulting argument -${key} to ${defaultValue} (${description})`,
         );
         value = defaultValue;
     } else {
         value = args[index + 1];
-        console.log(`${name}:\nSet to ${defaultValue}`);
+        console.error(`${name}:\nSet to ${defaultValue}`);
     }
 
     const parsed = z.safeParse(schema, value);

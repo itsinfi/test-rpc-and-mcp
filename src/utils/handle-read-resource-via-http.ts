@@ -1,32 +1,27 @@
-import { z } from 'zod';
-import type { ReadResourceCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
-import type {
-    ServerNotification,
-    ServerRequest,
-} from '@modelcontextprotocol/sdk/types.js';
-import type { RequestHandlerExtra } from '@modelcontextprotocol/sdk/shared/protocol.js';
+import z from 'zod';
+import type { HttpResourceRequest } from '../types';
 
-export async function handleReadResourceViaHttp({
+export async function handleReadResourceViaHttp<T>({
     request,
+    schema,
     resourceReader,
-}: {
-    request: Request;
-    resourceReader: ReadResourceCallback;
-}): Promise<Response> {
+}: HttpResourceRequest<T>): Promise<Response> {
     const url = new URL(request.url);
-
-    const uri = new URL(url.searchParams.get('uri') ?? '');
 
     const params: Record<string, string> = Object.fromEntries(
         url.searchParams.entries(),
     );
 
-    const extra = params as unknown as RequestHandlerExtra<
-        ServerRequest,
-        ServerNotification
-    >;
+    const parsed = schema.safeParse(params);
 
-    const result = await resourceReader(uri, extra);
+    if (!parsed.success) {
+        return Response.json(
+            { message: 'Invalid format', issues: parsed.error.issues },
+            { status: 400 },
+        );
+    }
+
+    const result = await resourceReader(parsed.data as T);
 
     return Response.json(result, { status: 200 });
 }

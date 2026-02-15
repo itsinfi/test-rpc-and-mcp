@@ -1,9 +1,6 @@
 import { z } from 'zod';
 import { readArgument } from './read-argument';
-import {
-    TransportMode as TransportMode,
-    ServerModeSchema,
-} from '../interfaces';
+import { TransportMode as TransportMode, ServerModeSchema } from '../types';
 import {
     DEFAULT_SERVER_HOST as DEFAULT_HOST,
     DEFAULT_SERVER_MODE as DEFAULT_TRANSPORT_MODE,
@@ -42,6 +39,6 @@ const args = {
     }),
 };
 
-console.log(''.padEnd(50, '*'));
+console.error(''.padEnd(50, '*'));
 
 export const APP_CONFIG = Object.freeze({ ...args });

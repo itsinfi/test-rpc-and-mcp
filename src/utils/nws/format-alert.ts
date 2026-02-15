@@ -1,4 +1,4 @@
-import type { AlertFeature } from '../../interfaces';
+import type { AlertFeature } from '../../types';
 
 export function formatAlert(feature: AlertFeature): string {
     const { properties } = feature;

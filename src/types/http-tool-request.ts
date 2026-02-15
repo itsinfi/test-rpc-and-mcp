@@ -1,8 +1,8 @@
-import type { ZodType } from 'zod';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
+import type { ZodObject } from 'zod';
 
 export interface HttpToolRequest<T> {
     request: Request;
-    schema: Record<string, ZodType>;
+    schema: ZodObject;
     toolCaller: (payload: T) => Promise<CallToolResult>;
 }

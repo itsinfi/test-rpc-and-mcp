@@ -1,5 +1,6 @@
 import type { Implementation } from '@modelcontextprotocol/sdk/types.js';
-import { TransportMode } from '../interfaces';
+import { TransportMode } from '../types';
+import type { ServerOptions } from '@modelcontextprotocol/sdk/server';
 
 // DEFAULT CONFIG VALUES ---------------------------------------------------------------------------------------------------------------------
 export const DEFAULT_SERVER_HOST = '0.0.0.0';
@@ -12,3 +13,18 @@ export const MCP_SERVER_INFO = {
     name: 'nws-weather',
     version: '1.0.0',
 } as const satisfies Implementation;
+
+export const MCP_SERVER_OPTIONS = {
+    capabilities: {
+        tools: {
+            listChanged: false,
+        },
+        resources: {
+            subscribe: false,
+            listChanged: false,
+        },
+        prompts: {
+            listChanged: false,
+        },
+    },
+} as const satisfies ServerOptions;

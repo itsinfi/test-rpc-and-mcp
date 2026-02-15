@@ -1,6 +1,6 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { NWS_API_BASE } from '../../config';
-import type { AlertsResponse, GetAlertsSchema } from '../../interfaces';
+import type { AlertsResponse, GetAlertsSchema } from '../../types';
 import { createCallToolResult, formatAlert, makeNWSRequest } from '../../utils';
 import type { ShapeOutput } from '@modelcontextprotocol/sdk/server/zod-compat.js';
 import type { ZodType } from 'zod';

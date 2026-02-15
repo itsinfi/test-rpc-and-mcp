@@ -6,9 +6,10 @@
 - [MCP guide to connecting to local servers](https://modelcontextprotocol.io/docs/develop/connect-local-servers)
 - [MCP guide to connecting to remote servers](https://modelcontextprotocol.io/docs/develop/connect-remote-servers)
 - [MCP TypeScript SDK documentation](https://github.com/modelcontextprotocol/typescript-sdk)
+- [MCP TypeScript example](https://github.com/modelcontextprotocol/typescript-sdk/blob/main/examples/server/src/simpleStreamableHttp.ts)
 - [Reponse status codes for JSON RPC](https://www.jsonrpc.org/historical/json-rpc-over-http.html#response-codes)
 - [Llama 3.2 1b q4 gguf](https://huggingface.co/Solshine/Llama-3.2-1B-Q4_K_M-GGUF/tree/main)
-- [mistral.rs](https://github.com/EricLBuehler/mistral.rs) [did not work]
-- [Claude for Desktop](https://claude.com/download) [did not work for windows x86]
+- [mistral.rs](https://github.com/EricLBuehler/mistral.rs) (did not work)
+- [Claude for Desktop](https://claude.com/download) (did not work for windows x86)
 - [Cursor](https://cursor.com/)
 - [Cursor MCP documentation](https://cursor.com/docs/context/mcp)

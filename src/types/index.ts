@@ -12,3 +12,6 @@ export { ServerModeSchema, TransportMode } from './config/transport-mode';
 export { type PromptConfig } from './config/prompt-config';
 export { type ResourceConfig } from './config/resource-config';
 export { type Resource } from './config/resource';
+export { type GenerateGreetingSchema } from './greetings/schema/generate-greeting-schema';
+export { type GetJokeByTopicSchema } from './jokes/schema/get-joke-by-topic-schema';
+export { type HttpResourceRequest } from './http-resource-request';
