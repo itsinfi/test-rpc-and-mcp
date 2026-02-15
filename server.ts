@@ -2,6 +2,7 @@ import {
     APP_CONFIG,
     GET_ALERTS_CONFIG,
     GET_FORECAST_CONFIG,
+    JOKE_CONFIG,
     readArgument,
 } from './src/config';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
@@ -9,12 +10,25 @@ import { callGetAlertsViaMcp, callGetForecastViaMcp } from './src/tools';
 import { MCP_SERVER_INFO } from './src/config/constants';
 import { TransportMode } from './src/interfaces';
 import { runHttpServer, runStdioServer } from './src';
+import { getJokes } from './src/resources';
 
 // MCP SERVER SETUP ---------------------------------------------------------------------------------------------------------------------------
 const server = new McpServer(MCP_SERVER_INFO);
 
+// tools
 server.registerTool('get_alerts', GET_ALERTS_CONFIG, callGetAlertsViaMcp);
 server.registerTool('get_forecast', GET_FORECAST_CONFIG, callGetForecastViaMcp);
+
+// prompts
+//server.registerPrompt();
+
+// resources
+server.registerResource(
+    'jokes',
+    'jokes://{topic}',
+    JOKE_CONFIG.metadata,
+    getJokes,
+);
 
 // TRANSPORT PROTOCOL SETUP ---------------------------------------------------------------------------------------------------------------------------
 switch (APP_CONFIG.TRANSPORT_MODE) {

@@ -2,34 +2,39 @@ import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/
 import { APP_CONFIG, GET_ALERTS_CONFIG, GET_FORECAST_CONFIG } from './config';
 import type { GetAlertsSchema, GetForecastSchema } from './interfaces';
 import { callGetAlertsViaHttp, callGetForecastViaHttp } from './tools';
-import { handleToolRequestViaHttp } from './utils';
+import { handleCallToolViaHttp } from './utils';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { MCP_SERVER_INFO } from './config/constants';
+import { getJokes } from './resources';
+import { handleReadResourceViaHttp } from './utils/handle-read-resource-via-http';
 
 export async function runHttpServer(server: McpServer) {
     const transport = new WebStandardStreamableHTTPServerTransport();
     await server.connect(transport);
 
     const apiRoutes = {
-        '/api/health': new Response('OK'),
-        '/api/test': {
-            GET: async (req: Request) => new Response(await req.text()),
-            POST: async (req: Request) => new Response(await req.text()),
-        },
-        '/api/alerts': {
+        '/api/test': new Response('OK'),
+        '/api/nws/alerts': {
             GET: async (req: Request) =>
-                await handleToolRequestViaHttp<GetAlertsSchema>({
+                await handleCallToolViaHttp<GetAlertsSchema>({
                     request: req,
                     schema: GET_ALERTS_CONFIG.inputSchema,
                     toolCaller: callGetAlertsViaHttp,
                 }),
         },
-        '/api/forecast': {
+        '/api/nws/forecast': {
             GET: async (req: Request) =>
-                await handleToolRequestViaHttp<GetForecastSchema>({
+                await handleCallToolViaHttp<GetForecastSchema>({
                     request: req,
                     schema: GET_FORECAST_CONFIG.inputSchema,
                     toolCaller: callGetForecastViaHttp,
+                }),
+        },
+        '/api/jokes': {
+            GET: async (req: Request) =>
+                handleReadResourceViaHttp({
+                    request: req,
+                    resourceReader: getJokes,
                 }),
         },
     };

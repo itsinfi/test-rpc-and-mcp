@@ -37,8 +37,5 @@ mcp.json*
 # Finder (MacOS) folder config
 .DS_Store
 
-# data
-data/
-
 # llm model checkpoint
 *.gguf

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { HttpToolRequest } from '../interfaces';
 
-export async function handleToolRequestViaHttp<T>({
+export async function handleCallToolViaHttp<T>({
     request,
     schema,
     toolCaller,

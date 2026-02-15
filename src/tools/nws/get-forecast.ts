@@ -6,7 +6,7 @@ import {
     type GetForecastSchema,
 } from '../../interfaces';
 import { NWS_API_BASE } from '../../config';
-import { createCallToolTextResult, makeNWSRequest } from '../../utils';
+import { createCallToolResult, makeNWSRequest } from '../../utils';
 import type { $ZodTypeInternals } from 'zod/v4/core';
 import type { ZodType } from 'zod';
 import type { ShapeOutput } from '@modelcontextprotocol/sdk/server/zod-compat.js';
@@ -15,6 +15,16 @@ async function getForecast({
     latitude,
     longitude,
 }: GetForecastSchema): Promise<CallToolResult> {
+    console.error(
+        [
+            ''.padEnd(50, '*'),
+            'GET_FORECAST',
+            'input: ',
+            `-    latitude: ${latitude}`,
+            `-    longitude: ${latitude}`,
+        ].join('\n'),
+    );
+
     // get grid point data
     const pointsUrl = `${NWS_API_BASE}/points/${latitude.toFixed(4)},${longitude.toFixed(4)}`;
     const pointsData = await makeNWSRequest<PointsResponse>(pointsUrl);
@@ -24,13 +34,13 @@ async function getForecast({
             `Failed to retrieve grid point data for coordinates: ${latitude}, ${longitude}.` +
             'This location may not be supported by the NWS API (only US locations are supported).';
 
-        return createCallToolTextResult(text);
+        return createCallToolResult(text);
     }
 
     const forecastUrl = pointsData.properties?.forecast;
 
     if (!forecastUrl) {
-        return createCallToolTextResult(
+        return createCallToolResult(
             'Failed to get forecast URL from grid point data',
         );
     }
@@ -38,12 +48,12 @@ async function getForecast({
     // get forecast data
     const forecastData = await makeNWSRequest<ForecastResponse>(forecastUrl);
     if (!forecastData) {
-        return createCallToolTextResult('Failed to retrieve forecast data');
+        return createCallToolResult('Failed to retrieve forecast data');
     }
 
     const periods = forecastData.properties?.periods || [];
     if (periods.length === 0) {
-        return createCallToolTextResult('No forecast periods available');
+        return createCallToolResult('No forecast periods available');
     }
 
     // format forecast periods
@@ -59,7 +69,7 @@ async function getForecast({
 
     const forecastText = `Forecast for ${latitude}, ${longitude}:\n\n${formattedForecast.join('\n')}`;
 
-    return createCallToolTextResult(forecastText);
+    return createCallToolResult(forecastText);
 }
 
 export const callGetForecastViaMcp = async (

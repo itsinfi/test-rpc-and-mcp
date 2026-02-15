@@ -11,3 +11,4 @@
 - [mistral.rs](https://github.com/EricLBuehler/mistral.rs) [did not work]
 - [Claude for Desktop](https://claude.com/download) [did not work for windows x86]
 - [Cursor](https://cursor.com/)
+- [Cursor MCP documentation](https://cursor.com/docs/context/mcp)

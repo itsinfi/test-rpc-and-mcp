@@ -1,4 +1,4 @@
-export { APP_CONFIG } from './config';
+export { APP_CONFIG } from './app-config';
 export { MCP_SERVER_INFO } from './constants';
 export {
     USER_AGENT,
@@ -7,3 +7,4 @@ export {
     GET_FORECAST_CONFIG,
 } from './nws/constants';
 export { readArgument } from './read-argument';
+export { JOKE_CONFIG } from './jokes/constants';

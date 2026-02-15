@@ -1,4 +1,4 @@
-import type { ToolConfig } from '../../interfaces/nws/tool-config';
+import type { ToolConfig } from '../../interfaces';
 import { z } from 'zod';
 
 // CONFIG FOR NWS API ---------------------------------------------------------------------------------------------------------------------
@@ -12,19 +12,26 @@ const MIN_LONGITUDE = -169;
 const MAX_LONGITUDE = -66;
 
 // CONFIG FOR ALERTS ---------------------------------------------------------------------------------------------------------------------
-export const GET_ALERTS_CONFIG: ToolConfig = Object.freeze({
-    description: 'Get weather alerts for a state',
+export const GET_ALERTS_CONFIG = {
+    // TODO:
+    title: 'US Weather Alerts',
+    description: 'Get weather alerts for a US state',
     inputSchema: {
         state: z.coerce
             .string()
             .length(2)
             .describe('Two-letter state code (e.g. CA, NY)'),
     },
-});
+    outputSchema: {},
+    annotations: {},
+    _meta: {},
+} as const satisfies ToolConfig;
 
 // CONFIG FOR FORECASTS ---------------------------------------------------------------------------------------------------------------------
-export const GET_FORECAST_CONFIG: ToolConfig = Object.freeze({
-    description: 'Get weather forecast for a location',
+export const GET_FORECAST_CONFIG = {
+    title: 'US Weather Forecast',
+    description:
+        'Get weather forecast for a location in the USA that must be provided as coordinates',
     inputSchema: {
         latitude: z.coerce
             .number()
@@ -37,4 +44,4 @@ export const GET_FORECAST_CONFIG: ToolConfig = Object.freeze({
             .max(MAX_LONGITUDE)
             .describe('Longitude of the location'),
     },
-});
+} as const satisfies ToolConfig;

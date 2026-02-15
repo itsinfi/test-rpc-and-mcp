@@ -8,7 +8,7 @@ export const DEFAULT_SERVER_MODE = TransportMode.Http;
 export const DEFAULT_IDLE_TIMEOUT = 30;
 
 // CONFIG FOR MCP SERVER ---------------------------------------------------------------------------------------------------------------------
-export const MCP_SERVER_INFO: Implementation = Object.freeze({
+export const MCP_SERVER_INFO = {
     name: 'nws-weather',
     version: '1.0.0',
-});
+} as const satisfies Implementation;

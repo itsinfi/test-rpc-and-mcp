@@ -22,9 +22,9 @@ MCP Server is now available at `http://localhost:3000/mcp`.
 
 To check if the server is working, try any of the following endpoints:
 
-- `http://localhost:3000/api/health`
-- `http://localhost:3000/api/alerts?state=CA`
-- `http://localhost:3000/api/forecast?latitude=61&longitude=-149`
+- `http://localhost:3000/api/test`
+- `http://localhost:3000/api/nws/alerts?state=CA`
+- `http://localhost:3000/api/nws/forecast?latitude=61&longitude=-149`
 
 Optionally, you can change the following parameters when executing:
 
