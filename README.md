@@ -57,6 +57,12 @@ I am not sure if mistral.rs can work after hours spent on trying to get it runni
 
 Install Docker Desktop and run:
 
-```
+```bash
 docker-compose up server mistralrs-client
+```
+
+## Run MCP Inspector
+
+```bash
+bun run npx @modelcontextprotocol/inspector bun server.ts -m stdio
 ```
