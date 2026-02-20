@@ -1,4 +1,3 @@
-import { z } from 'zod';
 import type { HttpToolRequest } from '../types';
 
 export async function handleCallToolViaHttp<T>({
@@ -12,8 +11,7 @@ export async function handleCallToolViaHttp<T>({
         url.searchParams.entries(),
     );
 
-    const schemaObject = z.object(schema);
-    const parsed = schemaObject.safeParse(params);
+    const parsed = schema.safeParse(params);
 
     if (!parsed.success) {
         return Response.json(
