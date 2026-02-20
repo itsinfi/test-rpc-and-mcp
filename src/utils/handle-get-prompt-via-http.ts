@@ -1,11 +1,11 @@
-import type { HttpToolRequest } from '../types';
+import type { HttpPromptRequest, HttpToolRequest } from '../types';
 import { parseUrlToSchema } from './parse-url-to-schema';
 
-export async function handleCallToolViaHttp<T>({
+export async function handleGetPromptViaHttp<T>({
     request,
     schema,
-    callToolCallback,
-}: HttpToolRequest<T>): Promise<Response> {
+    getPromptCallback,
+}: HttpPromptRequest<T>): Promise<Response> {
     const parsed = parseUrlToSchema(request.url, schema);
 
     if (!parsed.success) {
@@ -15,7 +15,7 @@ export async function handleCallToolViaHttp<T>({
         );
     }
 
-    const result = await callToolCallback(parsed.data as T);
+    const result = getPromptCallback(parsed.data as T);
 
     return Response.json(result, { status: 200 });
 }

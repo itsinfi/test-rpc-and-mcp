@@ -4,5 +4,5 @@ import type { ZodObject } from 'zod';
 export interface HttpToolRequest<T> {
     request: Request;
     schema: ZodObject;
-    toolCaller: (payload: T) => Promise<CallToolResult>;
+    callToolCallback: (payload: T) => Promise<CallToolResult>;
 }

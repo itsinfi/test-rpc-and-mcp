@@ -21,3 +21,7 @@ export const callGenerateFunnyGreetingViaMcp = (
         >
     >,
 ) => generateFunnyGreeting(args as unknown as GenerateGreetingSchema);
+
+export const callGenerateFunnyGreetingViaHttp = (
+    payload: GenerateGreetingSchema,
+) => generateFunnyGreeting(payload);

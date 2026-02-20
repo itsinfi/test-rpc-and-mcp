@@ -33,13 +33,6 @@ server.registerPrompt(
 );
 
 // resources
-// server.registerResource(
-//     'jokes',
-//     'jokes://list-of-jokes',
-//     JOKE_CONFIG.metadata,
-//     getJokes,
-// );
-
 Object.keys(JOKE_RESOURCES).forEach((topic) =>
     server.registerResource(
         `joke_related_to_${topic}_topic`,

@@ -1,18 +1,13 @@
 import z from 'zod';
 import type { HttpResourceRequest } from '../types';
+import { parseUrlToSchema } from './parse-url-to-schema';
 
 export async function handleReadResourceViaHttp<T>({
     request,
     schema,
-    resourceReader,
+    readResourceCallback,
 }: HttpResourceRequest<T>): Promise<Response> {
-    const url = new URL(request.url);
-
-    const params: Record<string, string> = Object.fromEntries(
-        url.searchParams.entries(),
-    );
-
-    const parsed = schema.safeParse(params);
+    const parsed = parseUrlToSchema(request.url, schema);
 
     if (!parsed.success) {
         return Response.json(
@@ -21,7 +16,7 @@ export async function handleReadResourceViaHttp<T>({
         );
     }
 
-    const result = await resourceReader(parsed.data as T);
+    const result = await readResourceCallback(parsed.data as T);
 
     return Response.json(result, { status: 200 });
 }

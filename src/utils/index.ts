@@ -5,3 +5,5 @@ export { createCallToolResult } from './create-call-tool-result';
 export { handleCallToolViaHttp } from './handle-call-tool-via-http';
 export { createReadResourceResult } from './create-read-resource-result';
 export { createGetPromptResult } from './create-get-prompt-result';
+export { handleGetPromptViaHttp } from './handle-get-prompt-via-http';
+export { parseUrlToSchema } from './parse-url-to-schema';

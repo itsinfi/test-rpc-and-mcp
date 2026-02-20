@@ -4,5 +4,5 @@ import type { ZodObject } from 'zod';
 export interface HttpResourceRequest<T> {
     request: Request;
     schema: ZodObject;
-    resourceReader: (payload: T) => Promise<ReadResourceResult>;
+    readResourceCallback: (payload: T) => Promise<ReadResourceResult>;
 }

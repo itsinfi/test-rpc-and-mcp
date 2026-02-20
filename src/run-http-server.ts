@@ -1,22 +1,25 @@
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import {
     APP_CONFIG,
+    GENERATE_GREETING_SCHEMA,
     GET_ALERTS_SCHEMA,
     GET_FORECAST_SCHEMA,
     GET_JOKE_BY_TOPIC_SCHEMA,
 } from './config';
-import type {
-    GetAlertsSchema,
-    GetForecastSchema,
-    GetJokeByTopicSchema,
+import {
+    type GenerateGreetingSchema,
+    type GetAlertsSchema,
+    type GetForecastSchema,
+    type GetJokeByTopicSchema,
 } from './types';
 import { callGetAlertsViaHttp, callGetForecastViaHttp } from './tools';
-import { handleCallToolViaHttp } from './utils';
+import { handleCallToolViaHttp, handleGetPromptViaHttp } from './utils';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { MCP_SERVER_INFO } from './config/constants';
 import { getJokeByTopic, getJokes } from './resources';
 import { handleReadResourceViaHttp } from './utils/handle-read-resource-via-http';
 import type { ZodType } from 'zod';
+import { callGenerateFunnyGreetingViaHttp } from './prompts';
 
 export async function runHttpServer(server: McpServer) {
     const transport = new WebStandardStreamableHTTPServerTransport();
@@ -29,7 +32,7 @@ export async function runHttpServer(server: McpServer) {
                 await handleCallToolViaHttp<GetAlertsSchema>({
                     request: req,
                     schema: GET_ALERTS_SCHEMA,
-                    toolCaller: callGetAlertsViaHttp,
+                    callToolCallback: callGetAlertsViaHttp,
                 }),
         },
         '/api/nws/forecast': {
@@ -37,7 +40,7 @@ export async function runHttpServer(server: McpServer) {
                 await handleCallToolViaHttp<GetForecastSchema>({
                     request: req,
                     schema: GET_FORECAST_SCHEMA,
-                    toolCaller: callGetForecastViaHttp,
+                    callToolCallback: callGetForecastViaHttp,
                 }),
         },
         '/api/jokes': {
@@ -45,9 +48,16 @@ export async function runHttpServer(server: McpServer) {
                 handleReadResourceViaHttp<GetJokeByTopicSchema>({
                     request: req,
                     schema: GET_JOKE_BY_TOPIC_SCHEMA,
-                    resourceReader: getJokeByTopic,
+                    readResourceCallback: getJokeByTopic,
                 }),
-            //GET: Response.json(getJokes()),
+        },
+        '/api/funny-greeting-prompt': {
+            GET: async (req: Request) =>
+                handleGetPromptViaHttp<GenerateGreetingSchema>({
+                    request: req,
+                    schema: GENERATE_GREETING_SCHEMA,
+                    getPromptCallback: callGenerateFunnyGreetingViaHttp,
+                }),
         },
     };
 
